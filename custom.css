@@ -23,7 +23,7 @@ body {
   width: 100vw;
   overflow: hidden;
 }
-.container {
+.gameContainer {
   background: rgba(0, 0, 0, 0.8);
   width: 95vw;
   height: 92vh;
@@ -50,7 +50,6 @@ body {
 .game-menu {
   display: flex;
   flex-direction: column;
-
 }
 
 .game-title {
@@ -58,7 +57,18 @@ body {
   font-size: 5rem;
 }
 
+p.choice {
+  border: 2px solid rgb(185, 124, 44);
+  width: 40%;
+  padding: 0;
+  align-self: flex-start;
+  justify-self: flex-end;
+}
 
+.choice > a {
+  width: max-content;
+  height: 100%;
+}
 
 .game-start {
   background: none;
@@ -77,39 +87,88 @@ body {
 
 .game-start:hover {
   animation-name: shakeAnim;
-
 }
 
 @keyframes shakeAnim {
-  0% {left: 0}
-  1% {left: -3px}
-  2% {left: 5px}
-  3% {left: -8px}
-  4% {left: 8px}
-  5% {left: -5px}
-  6% {left: 3px}
-  7% {left: 0}
+  0% {
+    left: 0;
+  }
+  1% {
+    left: -3px;
+  }
+  2% {
+    left: 5px;
+  }
+  3% {
+    left: -8px;
+  }
+  4% {
+    left: 8px;
+  }
+  5% {
+    left: -5px;
+  }
+  6% {
+    left: 3px;
+  }
+  7% {
+    left: 0;
+  }
 }
 
 @keyframes shake {
-  12.5% {transform: translateX(0) rotate(0deg)}
-  25% {transform: translateX(-1px) rotate(1deg)}
-  37.5% {transform: translateX(2px) rotate(-2deg)}
-  50% {transform: translateX(-3px) rotate(3deg)}
-  62.5% {transform: translateX(3px) rotate(-3deg)}
-  75% {transform: translateX(-2px) rotate(2deg)}
-  87.5% {transform: translateX(1px) rotate(-1deg)}
-  100% {transform: translateX(0) rotate(0deg)}
+  12.5% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-1px) rotate(1deg);
+  }
+  37.5% {
+    transform: translateX(2px) rotate(-2deg);
+  }
+  50% {
+    transform: translateX(-3px) rotate(3deg);
+  }
+  62.5% {
+    transform: translateX(3px) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(-2px) rotate(2deg);
+  }
+  87.5% {
+    transform: translateX(1px) rotate(-1deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
 }
 
 @keyframes shake2 {
-  0% {transform: translateX(0)}
-  12.5% {transform: translateX(0)}
-  25% {transform: translateX(-2px)}
-  37.5% {transform: translateX(4px)}
-  50% {transform: translateX(-6px)}
-  62.5% {transform: translateX(6px)}
-  75% {transform: translateX(-4px)}
-  87.5% {transform: translateX(2px)}
-  100% {transform: translateX(0)}
+  0% {
+    transform: translateX(0);
+  }
+  12.5% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  37.5% {
+    transform: translateX(4px);
+  }
+  50% {
+    transform: translateX(-6px);
+  }
+  62.5% {
+    transform: translateX(6px);
+  }
+  75% {
+    transform: translateX(-4px);
+  }
+  87.5% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

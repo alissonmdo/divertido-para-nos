@@ -44,6 +44,7 @@
 
         if(firstTime){
             var soundDiv = document.getElementById('backgroundMusic');
+            var home = document.getElementById('gameMenu').style.display = 'none';
     //        tocaMusica(soundDiv, backgroundMusicSrc);
             soundDiv.src = backgroundMusicSrc;
             soundDiv.play();

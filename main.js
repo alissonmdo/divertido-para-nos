@@ -116,6 +116,7 @@
 
             console.log(paragraphText);
 
+            customClasses.push("texto-historia");
             // Add any custom classes derived from ink tags
             for(var i=0; i<customClasses.length; i++)
                 paragraphElement.classList.add(customClasses[i]);
@@ -133,6 +134,8 @@
 
             // Create paragraph with anchor element
             var choiceParagraphElement = document.createElement('p');
+            choiceParagraphElement.classList.add("texto-escolha");
+            customClasses.push("texto-historia");
             choiceParagraphElement.classList.add("choice");
             choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
             storyContainer.appendChild(choiceParagraphElement);

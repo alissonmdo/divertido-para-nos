@@ -1,8 +1,15 @@
 * {
   box-sizing: border-box;
 }
+
+body {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .blurred-background {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.1);
+  background-image: url('./Assets/cenas/manda-chuvaDiscurso.jpg');
   filter: blur(20px);
   -webkit-filter: blur(20px);
   height: 100%;
@@ -29,4 +36,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0;
+}
+
+.container > p {
+  color: white;
+  font-size: 2rem;
 }

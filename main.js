@@ -44,7 +44,7 @@
 
         if(firstTime){
             var soundDiv = document.getElementById('backgroundMusic');
-            var home = document.getElementById('gameMenu').style.display = 'none';
+            document.getElementById('gameMenu').style.display = 'none';
     //        tocaMusica(soundDiv, backgroundMusicSrc);
             soundDiv.src = backgroundMusicSrc;
             soundDiv.play();
@@ -134,8 +134,6 @@
 
             // Create paragraph with anchor element
             var choiceParagraphElement = document.createElement('p');
-            choiceParagraphElement.classList.add("texto-escolha");
-            customClasses.push("texto-historia");
             choiceParagraphElement.classList.add("choice");
             choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
             storyContainer.appendChild(choiceParagraphElement);

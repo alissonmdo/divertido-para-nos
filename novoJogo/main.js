@@ -1,5 +1,6 @@
 (function(storyContent) {
 
+    var backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
 
@@ -8,6 +9,11 @@
     //  # theme: dark
     //  # author: Your Name
     var globalTags = story.globalTags;
+
+    var soundDiv = document.querySelector('#backgroundMusic');
+    soundDiv.src = backgroundMusicSrc;
+    soundDiv.play();
+    soundDiv.loop = true;
     if( globalTags ) {
         for(var i=0; i<story.globalTags.length; i++) {
             var globalTag = story.globalTags[i];
@@ -61,15 +67,8 @@
                 var splitTag = splitPropertyTag(tag);
 
 
-                if( splitTag && splitTag.property == "SOUND1"){
-                    console.log("EU TENHO MUSICA")
-                    var soundSrc = document.querySelector('#som1');
-                    soundSrc.src = splitTag.val;
-                    soundSrc.play();
-                }
-                if( splitTag && splitTag.property == "SOUND2"){
-                    console.log("EU TENHO MUSICA")
-                    var soundSrc = document.querySelector('#som2');
+                if( splitTag && splitTag.property == "SOUND"){
+                    var soundSrc = document.querySelector('#soundEffects');
                     soundSrc.src = splitTag.val;
                     soundSrc.play();
                 }
@@ -79,12 +78,6 @@
                     var imgSrc = document.querySelector('#cena');
                     console.log(imgSrc);
                     imgSrc.src = splitTag.val;
-//                    var imageElement = document.createElement('img');
-//                    imageElement.src = splitTag.val;
-//                    storyContainer.appendChild(imageElement);
-//
-//                    showAfter(delay, imageElement);
-//                    delay += 200.0;
                 }
 
                 // CLASS: className
@@ -269,6 +262,13 @@
         }
 
         return null;
+    }
+
+    function tocaMusica(tag, src){
+        var soundDiv = document.querySelector(tag);
+        soundDiv.srv = src;
+        console.log(soundDiv.src);
+        soundDiv.play();
     }
 
 })(storyContent);

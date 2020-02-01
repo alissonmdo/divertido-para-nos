@@ -1,19 +1,17 @@
 (function(storyContent) {
 
-    var backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
+    backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
     // Create ink story from the content using inkjs
-    var story = new inkjs.Story(storyContent);
+    story = new inkjs.Story(storyContent);
 
     // Global tags - those at the top of the ink file
     // We support:
     //  # theme: dark
     //  # author: Your Name
-    var globalTags = story.globalTags;
+    globalTags = story.globalTags;
 
-    var soundDiv = document.querySelector('#backgroundMusic');
-    soundDiv.src = backgroundMusicSrc;
-    soundDiv.play();
-    soundDiv.loop = true;
+
+
     if( globalTags ) {
         for(var i=0; i<story.globalTags.length; i++) {
             var globalTag = story.globalTags[i];
@@ -32,16 +30,25 @@
         }
     }
 
-    var storyContainer = document.querySelector('#story');
-    var outerScrollContainer = document.querySelector('.outerContainer');
+    storyContainer = document.querySelector('#story');
+    outerScrollContainer = document.querySelector('.outerContainer');
 
 
     // Kick off the start of the story!
-    continueStory(true);
+//    continueStory(true);
+})(storyContent);
 
     // Main story processing function. Each time this is called it generates
     // all the next content up as far as the next set of choices.
     function continueStory(firstTime) {
+
+        if(firstTime){
+            var soundDiv = document.getElementById('backgroundMusic');
+    //        tocaMusica(soundDiv, backgroundMusicSrc);
+            soundDiv.src = backgroundMusicSrc;
+            soundDiv.play();
+            soundDiv.loop = true;
+        }
 
         var paragraphIndex = 0;
         var delay = 0.0;
@@ -270,5 +277,3 @@
         console.log(soundDiv.src);
         soundDiv.play();
     }
-
-})(storyContent);

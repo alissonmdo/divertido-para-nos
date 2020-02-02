@@ -14,7 +14,7 @@ LIST causa_da_pira = Droga, Ambiente, Trauma
 LIST pessoa_observada = Traficante, Vereador, Pastor 
 
 // -> a_soc_sec
--> pira_ativada
+-> porque_estou_aqui
 
 === acordou ===
 #IMAGE Assets/cenas/acorda.jpg

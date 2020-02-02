@@ -73,7 +73,7 @@ h3.written-in-ink {
     left: 0;
 }
 
-.dark .container {
+.dark .gameContainer {
     background: black;
 }
 
@@ -122,15 +122,15 @@ img {
     max-width: 100%;
 }
 
-.container .hide {
+.gameContainer .hide {
     opacity: 0.0;
 }
 
-.container .invisible {
+.gameContainer .invisible {
     display: none;
 }
 
-.container * {
+.gameContainer * {
     opacity: 1.0;
     transition: opacity 1.0s;
 }

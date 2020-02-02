@@ -30,7 +30,9 @@
         }
     }
 
-    storyContainer = document.querySelector('#story');
+    storyContainer = document.querySelector('#gameContainer');
+    timelineContainer = document.querySelector('#timelineContainer');
+    choicesContainer = document.querySelector('#choicesContainer');
     outerScrollContainer = document.querySelector('.outerContainer');
 
 
@@ -113,7 +115,7 @@
             // Create paragraph element (initially hidden)
             var paragraphElement = document.createElement('p');
             paragraphElement.innerHTML = paragraphText;
-            storyContainer.appendChild(paragraphElement);
+            timelineContainer.appendChild(paragraphElement);
 
             console.log(paragraphText);
 
@@ -137,7 +139,7 @@
             var choiceParagraphElement = document.createElement('p');
             choiceParagraphElement.classList.add("choice");
             choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
-            storyContainer.appendChild(choiceParagraphElement);
+            choicesContainer.appendChild(choiceParagraphElement);
 
             // Fade choice in after a short delay
             showAfter(delay, choiceParagraphElement);
@@ -225,7 +227,7 @@
     // The Y coordinate of the bottom end of all the story content, used
     // for growing the container, and deciding how far to scroll.
     function contentBottomEdgeY() {
-        var bottomElement = storyContainer.lastElementChild;
+        var bottomElement = timelineContainer.lastElementChild;
         if(bottomElement){
             console.log(bottomElement.offsetTop + bottomElement.offsetHeight);
         }
@@ -237,7 +239,12 @@
     // you've picked one, as well as for the CLEAR and RESTART tags.
     function removeAll(selector)
     {
-        var allElements = storyContainer.querySelectorAll(selector);
+        var allElements = timelineContainer.querySelectorAll(selector);
+        for(var i=0; i<allElements.length; i++) {
+            var el = allElements[i];
+            el.parentNode.removeChild(el);
+        }
+        allElements = choicesContainer.querySelectorAll(selector);
         for(var i=0; i<allElements.length; i++) {
             var el = allElements[i];
             el.parentNode.removeChild(el);
@@ -247,7 +254,15 @@
     // Used for hiding and showing the header when you CLEAR or RESTART the story respectively.
     function setVisible(selector, visible)
     {
-        var allElements = storyContainer.querySelectorAll(selector);
+        var allElements = timelineContainer.querySelectorAll(selector);
+        for(var i=0; i<allElements.length; i++) {
+            var el = allElements[i];
+            if( !visible )
+                el.classList.add("invisible");
+            else
+                el.classList.remove("invisible");
+        }
+        var allElements = choicesContainer.querySelectorAll(selector);
         for(var i=0; i<allElements.length; i++) {
             var el = allElements[i];
             if( !visible )

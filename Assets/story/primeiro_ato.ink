@@ -1,3 +1,5 @@
+INCLUDE fichas.ink
+
 
 VAR karma =  0
 
@@ -7,12 +9,12 @@ VAR soc_sec_existe = true
 
 VAR favoravel_a_soc_sec = true
 
-LIST causa_da_pira = Droga, Musica, Trauma
+LIST causa_da_pira = Droga, Ambiente, Trauma
 
 LIST pessoa_observada = Traficante, Vereador, Pastor 
 
 // -> a_soc_sec
--> acordou
+-> pira_ativada
 
 === acordou ===
 #IMAGE Assets/cenas/acorda.jpg
@@ -32,7 +34,7 @@ Uma multidão ao meu redor.
 
 Consigo distinguir o funk estourado nas caixas de som nas laterais de um grande galpão.
 
-Estou na lagoinha.
+Estou na Lagoinha.
 
     * [Olhar para a direita] 
     Eu olho para a direita, e vejo {nome_pastor}.
@@ -52,71 +54,30 @@ Estou na lagoinha.
     ~ karma += 1
     -> fichas.traficante -> porque_estou_aqui
 
-==== fichas ===
-    = traficante
-    #IMAGE Assets/cenas/{nome_traficante}.jpg
-    VAR nome_traficante = "Cafuzo"
-    
-    {nome_traficante} é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns. É respeitado pela comunidade, e temido por seus inimigos.
-    Já matou muito. Neguinho deveria pensar duas vezes antes de mexer com ele.
-    
-    {nome_traficante}
-     
-    {conhece_a_soc_sec:
-    Ele está reparando um exercito. Muitas armas
-    }
-    ->->
-    
-
-    = vereador
-    #IMAGE Assets/cenas/edvaldo.jpg
-    VAR nome_vereador = "Edvaldo Candeia"
-    
-    {nome_vereador}
-    
-    {conhece_a_soc_sec:
-    Porco safado! Descobri esses dias que está desviando dinhero da prefeitura! 
-    Nada que uma sova não resolva...
-    }
-    ->->
-
-    = pastor
-    VAR nome_pastor = "Seu Jaci"
-    
-    {nome_pastor}
-    #IMAGE Assets/cenas/pastor.jpg
-    {conhece_a_soc_sec:
-    O homem é a imagem da boa conduta... Tem muita influência sobre grande parte da comunidade
-    }
-    ->->
-
-    // = parteira
-    // Dona Néia
-    // #IMAGE Assets/cenas/parteira.jpg
-    
-    // {conhece_a_soc_sec:
-    // Conselheira, conhece todas as mães. As crianças a respeitam.
-    // }
-    // ->->
-
 
 === porque_estou_aqui ===
+* ...[]
 
 {pessoa_observada:
 - Pastor:
 Lembrei me do presságio que o pastor me deu da ultima vez que o encontrei.
 
 - Vereador:
-a
+Hoje esse pilantra não sai daqui sem dar satisfação para esse povo todo.
 
 - Traficante:
-Ele namorava minha irmã.
+Ele namorava minha irmaVou precisar da ajuda dele em breve. 
 }
 
-* Então...[] é por isso que estou aqui!
+#DELAY: 1
+Acho que é hoje o dia.
+
+** Então...[] é por isso que estou aqui!
 
 #DELAY: 1.5
 
+-> microfonia
+= microfonia
 #SOUNDEFFECT Assets/sounds/microfonia.wav
 
 Escuto uma  &&[warning]MICROFONIA&&
@@ -130,8 +91,9 @@ Olho para o palco e lá está {nome_traficante}...
 
 ** [Prestar atenção] -> discurso_traficante
 
+{ not pessoa_observada == Traficante:
 ** [Quem é {nome_traficante}?] -> fichas.traficante -> opcoes
-
+}
 
 
 -> percebe_a_pira
@@ -147,7 +109,8 @@ MEU DEUS TO PARANOICO SOCORO
 #IMAGE Assets/cenas/{nome_traficante}.jpg
 {nome_traficante}:
 
-/it "Graças a Deus e a &&[danger]FIRMA&& esse evento tá sendo  realizado e concretizado! Tamo aqui mais um ano familia!" /it
+/it "Graças a Deus e a &&[danger]FIRMA&& esse evento tá sendo  realizado e concretizado!" /it 
+/it "Tamo aqui mais um ano familia! VIVÃO E VIVENO!!!" /it
 
 #DELAY 1
 
@@ -158,27 +121,94 @@ MEU DEUS TO PARANOICO SOCORO
 
 /it "Vamos brindar o dia de hoje, que o amanhã só pertence a Deus, a vida é loka!" /it
 
+* ...[]
 
+/it "RAPAZEADA! Faz barulho pro {nome_pastor} que tem ajudado diariamente a manter a paz aqui no morro. O homi é o brabo! Tá com ele ta com Deus!"
+
+** ...[]
+
+/it "Faz barulho ae também pro meu chapa, o doutor {nome_vereador}, que olha por nós la da prefeitura! Esse é cria da comunidade, ta se dando bem na vida, exemplo pra nossas criança!"
+
+*** ...[]
+/it "E faz barulho também pra todo mundo que compareceu ai no role, e tá fechado com a &&[danger]FIRMA&&!" /it
 // mencionar personagens da sociedade vereador pastor
 
-* [entao é isso?] -> pira_ativada
+
+**** [O que é isso?] -> pira
 ->END
 
-=== pira_ativada ===
+=== pira ===
+#ANIMATION pira.gif
 #IMAGE Assets/cenas/pira_ativada.jpg
-Okay, estou começando a ficar paranoico
+
+???
+#DELAY 5
+
+Porquê tá todo mundo me olhando?
+
+*?????[]
+
+Sinto a espinha gelar.
+
+#DELAY 1
+Tem alguém me perseguindo!
+
+#DELAY 1
+
+Esse lugar nunca esteve tão pesado.
+#DELAY 1
+
+->noia
+
+=noia
+Tá, to numa noia.
+#DELAY 1
+De volta na fissura.
+
+->porque
+= porque
 
 Por que estou assim?
-* Usei uma droga
+    
+    * [Olhar para a mão] -> noia_droga -> pos_pira
+    
+    * [Olhar para o {nome_traficante}] -> noia_trauma  -> pos_pira
+    
+    * [Olhar ao redor] -> noia_ambiente -> pos_pira
+
+
+= noia_droga
     ~ causa_da_pira = Droga
     ~ karma +=0.5
-* A volta de um trauma
+Vejo a ponta do baseado que estava fumando há alguns minutos.
+#ANIMATION: psicodelia   
+->->
+
+= noia_trauma
     ~ causa_da_pira = Trauma
     ~ karma +=1
-* A influencia da musica
-    ~ causa_da_pira = Musica
+No braço de Cafuso da pra enxergar o nome da minha irmã. 
+
+#ANIMATION: memorias
+->->
+
+= noia_ambiente
+    ~ causa_da_pira = Ambiente
     ~ karma -=0.75
-- Então é isso 
+Nunca vi tanta gente nesse lugar. Estou ficando sem ar.
+
+#ANIMATION: sufocado
+
+->->
+
+"quer agua?"
+
+Não Deve estar 
+
+
+= pos_pira
+Então é isso 
+
 
 * Prestar atenção no discurso de {nome_traficante} 
 ->ressoa 
@@ -187,10 +217,11 @@ Por que estou assim?
 === ressoa ===
 
 RESSOA FRASE
+
 {causa_da_pira:
 - Trauma: trauma comigo? -> trauma
 - Droga: droga usei sim porra -> droga
-- Musica: musica daora? -> musica
+- Ambiente: Ambiente daora? -> ambiente
 }
 
 = trauma
@@ -201,8 +232,8 @@ RESSOA FRASE
 * reflexão sobre droga[]
 ->a_chegada_dos_bico
 
-= musica
-* reflexão sobre musica[]
+= ambiente
+* reflexão sobre ambiente[]
 ->a_chegada_dos_bico
 
 
@@ -214,7 +245,7 @@ Ouço uma sirene
 {causa_da_pira:
 - Trauma: -> dialogo_bico.trauma
 - Droga: -> dialogo_bico.droga
-- Musica: -> dialogo_bico.musica
+- Ambiente: -> dialogo_bico.ambiente
 }
 
 ** reage ruim
@@ -238,8 +269,8 @@ Ouço uma sirene
 * dialogo bico droga []
 ->reflexao_pos_bico 
 
-= musica 
-* dialogo bico musica []
+= ambiente 
+* dialogo bico Ambiente []
 ->reflexao_pos_bico 
 
 === reflexao_pos_bico ===
@@ -248,7 +279,7 @@ varia de acordo com a causa da pira
 {causa_da_pira:
 - Trauma: REFLEXAO Trauma
 - Droga: REFLEXAO droga
-- Musica: REFLEXAO musica
+- Ambiente: REFLEXAO Ambiente
 }
 
 * terminar[]

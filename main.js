@@ -60,6 +60,7 @@
 
         // Generate story text - loop through available content
         while(story.canContinue) {
+            var actualDelay = 200;
 
             // Get ink to generate the next paragraph
             var paragraphText = story.Continue();
@@ -72,10 +73,20 @@
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
 
-                if( splitTag && splitTag.property == "SOUNDEFFECT"){
+                if( splitTag && splitTag.property == "DELAY") {
+                    delay += (splitTag.val * 1000) - 200;
+                    actualDelay = (splitTag.val * 1000) - 200;
+                }
+
+                if (splitTag && splitTag.property == "SOUNDEFFECT") {
                     var soundSrc = document.getElementById('soundEffects');
                     soundSrc.src = splitTag.val;
-                    soundSrc.play();
+                    console.log(`VOU TOCAR A MÚSICA ${soundSrc} com delay de ${actualDelay}`);
+                    
+                    setTimeout(() => {
+                        soundSrc.play()
+                        console.log(`TOQUEI A ${soundSrc}`)
+                    }, actualDelay);
                 }
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
@@ -95,10 +106,7 @@
                     timelineContainer.appendChild(div);
                 }
 
-                if( splitTag && splitTag.property == "DELAY"){
-                //Mexe no delay da mensagem e retorna pro delay antigo
-                }
-
+                
                 if( splitTag && splitTag.property == "ANIMATION"){
                 }
 
@@ -121,6 +129,7 @@
                 }
             }
 
+            actualDelay = 200;
             // Create paragraph element (initially hidden)
             var paragraphElement = document.createElement('p');
             // Parse and replace
@@ -278,6 +287,7 @@
 
     function replaceInternalTags(paragraph){
         var newP;
+        var nome;
         newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
         newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
         newP = newP.replace(/%nome%/i,nome);

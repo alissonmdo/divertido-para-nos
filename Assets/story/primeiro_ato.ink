@@ -15,7 +15,7 @@ LIST pessoa_observada = Traficante, Vereador, Pastor
 -> acordou
 
 === acordou ===
-#IMAGE /Assets/cenas/acorda.jpg
+#IMAGE: /Assets/cenas/acorda.jpg
 Vultos.
 Som alto. 
 Luzes indo e voltando. 
@@ -26,8 +26,8 @@ Luzes indo e voltando.
 ->END
 
 === se_ambienta ===
-# CLEAR
-#IMAGE /Assets/cenas/ambienta-se.jpg
+#CLEAR
+#IMAGE: /Assets/cenas/ambienta-se.jpg
 Uma multidão ao meu redor.
 
 Percebo o funk estourando nas caixas de som nas laterais de um grande galpão.
@@ -68,13 +68,13 @@ a
 
 * Então...[] é por isso que estou aqui!
 
-#DELAY 1.5
+#DELAY: 1.5
 
-#SOUNDEFFECT microfonia
+#SOUNDEFFECT: /Assets/sounds/microfonia.wav
 
 Escuto uma  &&[warning]MICROFONIA&&
 
-#DELAY 1.5
+#DELAY: 1.5
 
 Olho para o palco e lá está Cafuzo...
 ->opcoes

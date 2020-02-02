@@ -114,7 +114,7 @@
 
             // Create paragraph element (initially hidden)
             var paragraphElement = document.createElement('p');
-            paragraphElement.innerHTML = paragraphText;
+            paragraphElement.innerHTML = paragraphText.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2<span>");
             timelineContainer.appendChild(paragraphElement);
 
             console.log(paragraphText);

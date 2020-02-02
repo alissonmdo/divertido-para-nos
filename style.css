@@ -164,3 +164,15 @@ p.choice a {
 .dark .end {
     color: white;
 }
+
+.chip {
+    padding:1.5px 10px;
+    border-radius: 5px;    
+}
+
+.warning{
+    background-color: orange;
+}
+.danger{
+    background-color: red;
+}

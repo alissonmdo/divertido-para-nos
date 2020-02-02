@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="custom.css">
+    <!-- <link rel="stylesheet" href="animated.css"> -->
 
 </head>
 
@@ -23,10 +24,10 @@
     </div>
     <audio visible="false" id="backgroundMusic"></audio>
     <audio visible="false" id="soundEffects"></audio>
-    <div id="gameContainer" class="gameContainer">
+    <div id="gameContainer" class="gameContainer shaking">
         <div class="game-menu" id="gameMenu">
             <h1 class="game-title">REVOLTA</h1>
-            <button id="startGame" class="game-start" onclick="continueStory(true)">COMEÇAR CAPÍTULO</button>
+            <button id="startGame" class="game-start" onclick="startGame()">COMEÇAR CAPÍTULO</button>
         </div>
         <div class="timeline-container" id="timelineContainer"></div>
         <div class="choices-container" id="choicesContainer"></div>
@@ -36,6 +37,7 @@
     <script src="ink.js"></script>
     <script src="Assets/story/primeiro_ato.js"></script>
     <script src="main.js"></script>
+    <script src="custom.js"></script>
 </body>
 
 </html>

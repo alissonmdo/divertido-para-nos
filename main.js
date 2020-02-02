@@ -45,7 +45,6 @@
     function continueStory(firstTime) {
 
         if(firstTime){
-            document.getElementById('gameMenu').style.display = 'none';
             var soundDiv = document.getElementById('backgroundMusic');
             soundDiv.src = backgroundMusicSrc;
             soundDiv.play();
@@ -95,6 +94,7 @@
                 // RESTART - clears everything and restarts the story from the beginning
                 else if( tag == "CLEAR" || tag == "RESTART" ) {
                     removeAll("p");
+                    removeAll("a");
                     removeAll("img");
 
                     // Comment out this line if you want to leave the header visible when clearing
@@ -132,18 +132,25 @@
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
 
+            // Create paragraph with choice text
+            var paragraphInsideChoice = document.createElement('p');
+            paragraphInsideChoice.innerHTML = `${choice.text}`;
+            paragraphInsideChoice.classList.add("choice-p");
             // Create paragraph with anchor element
-            var choiceParagraphElement = document.createElement('p');
-            choiceParagraphElement.classList.add("choice");
-            choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
-            choicesContainer.appendChild(choiceParagraphElement);
+            var choiceAnchorElement = document.createElement('a');
+            choiceAnchorElement.innerText = ``
+            choiceAnchorElement.classList.add("choice-a");
+            choiceAnchorElement.href = '#';
+
+            choiceAnchorElement.innerHTML = paragraphInsideChoice.outerHTML;
+            choicesContainer.appendChild(choiceAnchorElement);
 
             // Fade choice in after a short delay
-            showAfter(delay, choiceParagraphElement);
+            showAfter(delay, choiceAnchorElement);
             delay += 200.0;
 
             // Click on choice
-            var choiceAnchorEl = choiceParagraphElement.querySelectorAll("a")[0];
+            var choiceAnchorEl = choiceAnchorElement.querySelectorAll("p")[0];
             choiceAnchorEl.addEventListener("click", function(event) {
 
                 // Don't follow <a> link
@@ -152,6 +159,7 @@
                 // Remove all existing choices
                 //Limpa texto após a escolha
                 removeAll("p");
+                removeAll("a");
                 removeAll("p.choice");
 
                 // Tell the story where to go next

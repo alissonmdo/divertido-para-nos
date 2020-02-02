@@ -2,19 +2,25 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
 }
 
 .blurred-background {
   background-color: rgba(0, 0, 0, 0.1);
-  filter: blur(20px);
-  -webkit-filter: blur(20px);
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: -30;
 }
 
 .outerContainer {
@@ -28,15 +34,16 @@ body {
   height: 92vh;
   border-radius: 20px;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
+  top: 4vh;
+  left: 2.5vw;
+  transition: none;
   align-items: center;
   justify-content: center;
   padding: 0;
-  box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.8); */
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
 }
 
 .texto-historia {
@@ -56,17 +63,35 @@ body {
   font-size: 5rem;
 }
 
-p.choice {
-  border: 2px solid rgb(185, 124, 44);
-  width: 40%;
-  padding: 0;
-  align-self: flex-start;
-  justify-self: flex-end;
+.choices-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 2%;
 }
 
-.choice > a {
-  width: max-content;
-  height: 100%;
+.choice-p {
+  flex-grow: 1;
+  border: 2px solid rgb(185, 124, 44);
+  padding: 10px;
+  font-size: 2rem;
+  width: 100%;
+  margin: 0;
+  color: rgb(185, 124, 44);
+}
+
+.choice-p:hover {
+  border-color: yellow;
+  color: yellow;
+}
+
+.choices-container > a {
+  flex-grow: 1;
+  align-self: flex-start;
+  justify-self: flex-end;
+  margin: 20px;
+  min-width: 40%;
 }
 
 .game-start {
@@ -78,9 +103,9 @@ p.choice {
   font-style: italic;
   font-weight: bold;
   animation-name: shake;
-  animation-duration: 1s;
+  animation-duration: 0.8s;
   animation-iteration-count: infinite;
-  animation-timing-function: ease-in;
+  animation-timing-function: linear;
   cursor: pointer;
 }
 
@@ -170,4 +195,48 @@ p.choice {
   100% {
     transform: translateX(0);
   }
+}
+
+@-webkit-keyframes shakeme {
+  0% {
+    transform: translate(2px, 1px) rotate(0deg);
+  }
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    -webkit-transform: translate(0px, 2px) rotate(0deg);
+  }
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    -webkit-transform: translate(2px, 1px) rotate(-1deg);
+  }
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    -webkit-transform: translate(2px, 2px) rotate(0deg);
+  }
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+.shaking {
+  -webkit-animation-name: shakeme;
+  -webkit-animation-duration: 8s;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease;
 }

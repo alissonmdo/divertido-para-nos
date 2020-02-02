@@ -16,13 +16,13 @@ LIST minha_reacao = Boa, Ruim
 LIST pessoa_observada = (Traficante), Vereador, Pastor 
 
 // -> a_soc_sec
--> acordou
+-> quem_e_voce
 
 === acordou ===
 #IMAGE Assets/cenas/acorda.jpg
 Vultos.
 Som alto. 
-Luzes esstrobocópicas, indo e voltando. 
+Luzes estrobocópicas, indo e voltando. 
 
 * [???] O que estou fazendo aqui?
 ** [Olhar em volta] -> se_ambienta
@@ -38,23 +38,24 @@ Consigo distinguir o funk estourado nas caixas de som nas laterais de um grande 
 
 Estou na Lagoinha.
 
+    * [Olhar para a frente] 
+    Eu olho para a frente, e perto vejo {nome_traficante} subindo no palco.
+    ~ pessoa_observada = Traficante
+    ~ karma += 0.5
+    -> fichas.traficante -> porque_estou_aqui
+    
+    * [Olhar para a esquerda] 
+    Eu olho para a esquerda, e vejo {nome_vereador}...
+    ~ pessoa_observada = Vereador
+    ~ karma -= 1
+    -> fichas.vereador -> porque_estou_aqui
+    
     * [Olhar para a direita] 
-    Eu olho para a direita, e vejo {nome_pastor}.
+    Eu olho para a direita, e vejo {nome_pastor}...
     ~ pessoa_observada = Pastor
     ~ karma += 1
     -> fichas.pastor -> porque_estou_aqui
     
-    * [Olhar para a esquerda] 
-    Eu olho para a esquerda, e vejo {nome_vereador}.
-    ~ pessoa_observada = Vereador
-    ~ karma += 1
-    -> fichas.vereador -> porque_estou_aqui
-    
-    * [Olhar para a frente] 
-    Eu olho para a direita, e vejo {nome_traficante}.
-    ~ pessoa_observada = Traficante
-    ~ karma += 1
-    -> fichas.traficante -> porque_estou_aqui
 
 
 === porque_estou_aqui ===
@@ -76,7 +77,7 @@ Acho que é hoje o dia!
 
 ** Então...[] é por isso que estou aqui!
 
-#DELAY: 1.5
+#DELAY: 1
 
 -> microfonia
 = microfonia
@@ -87,15 +88,10 @@ Escuto uma  &&[warning]MICROFONIA&&
 #DELAY: 1.5
 
 Olho para o palco e lá está {nome_traficante}...
-->opcoes
 
-= opcoes
 
 ** [Prestar atenção no palco] -> discurso_traficante
 
-{ not pessoa_observada == Traficante:
-** [Quem é {nome_traficante}?] -> fichas.traficante -> opcoes
-}
 
 
 === discurso_traficante ===
@@ -109,60 +105,61 @@ Olho para o palco e lá está {nome_traficante}...
 
 /it "Muita coletividade na quebrada, dinheiro no bolso. Sem miséria, e é nóis!!!" /it
 
-#DELAY 1
+#DELAY 1.2
 
 /it "Vamos brindar o dia de hoje, que o amanhã só pertence a Deus, a vida é loka!" /it
 
-* [...]
+#DELAY 1.3
+
+* [Continuar ouvindo o discurso]
+
+{pessoa_observada == Traficante:
+
+* [Quem é {nome_traficante}?] -> fichas.traficante -> discurso_traficante
+
+}
 
 &&[fala]{nome_traficante}:&&
 
 /it "RAPAZEADA! Faz barulho pro {nome_pastor} que tem ajudado diariamente a manter a paz aqui no morro. O homi é o brabo! Tá com ele ta com Deus!" /it
 
-{ pessoa_observada != Pastor:
-** [Quem é {nome_pastor}?] -> fichas.pastor -> muvuca1
+#DELAY 1.2
+#SOUNDEFFECT Assets/sounds/muvuca
+O povo ovaciona, batendo nas cadeiras. 
+Estouraram &&[warning]fogos de artificio&& muito perto de onde eu estou.
+
+*** [Continuar ouvindo o discurso...] -> salve_vereador
+
+{ pessoa_observada != (Pastor):
+*** [Quem é {nome_pastor}?] -> fichas.pastor -> salve_vereador
 }
-** [...] 
--> muvuca1
 
-    =muvuca1
-    #SOUNDEFFECT Assets/sounds/muvuca
-    O povo ovaciona, batendo nas cadeiras. 
-    Estouraram &&[warning]fogos de artificio&& muito perto de onde eu estou.
-
-* [...] -> salve_vereador
 
 = salve_vereador 
-    &&[fala]{nome_traficante}:&&
-    /it "Faz barulho ae também pro meu chapa, o doutor {nome_vereador}, que olha por nós la da prefeitura! Esse é cria da comunidade, ta se dando bem na vida, exemplo pra nossas criança!" /it
+&&[fala]{nome_traficante}:&&
+/it "Faz barulho ae também pro meu chapa, o doutor {nome_vereador}, que olha por nós la da prefeitura! Esse é cria da comunidade, ta se dando bem na vida, exemplo pra nossas criança!" /it
 
-            { pessoa_observada != Vereador:
-            * [Quem é {nome_vereador}?] -> fichas.vereador -> salve_geral
-            }
-            * [...] 
-            ->muvuca2
+#DELAY 1.2
+#SOUNDEFFECT Assets/sounds/muvuca2
+O povo grita ainda mais forte. 
+Ouve se uma &&[warning]rajada&&.
 
-    = muvuca2
-    #SOUNDEFFECT Assets/sounds/muvuca2
-    O povo grita ainda mais forte. 
-    Ouve se uma &&[warning]rajada&&.
-
-    * [...] -> salve_geral
+* [Continuar ouvindo o discurso ...] -> salve_geral
+{ pessoa_observada != (Vereador):
+* [Quem é {nome_vereador}?] -> fichas.vereador -> salve_geral
+}
 
 = salve_geral
-    /it "E faz barulho também pra todo mundo que compareceu ai no role, e tá fechado com a &&[danger]FIRMA&&!/it 
-    #DELAY 0.5
-    /it Salve pros irmão pego fora de posição, lili vai cantar!!!  /it
-    #DELAY 0.5
-    /it E pra todo mundo que já partiu, que teja no céu olhando por nós!" /it
-    
-    #DELAY 0.5
-*[...] 
--> muvuca3
-    = muvuca3
-    #SOUNDEFFECT Assets/sounds/muvuca3
-    A comunidade vai ao caos, barulho de tiro pro alto, rajadas de metralhadora, muita gritaria e fogos de artificio.
-    
+/it "E faz barulho também pra todo mundo que compareceu ai no role, e tá fechado com a &&[danger]FIRMA&&!/it 
+#DELAY 1
+/it Salve pros irmão pego fora de posição, lili vai cantar!!!  /it
+#DELAY 1.5
+/it E pra todo mundo que já partiu, que teja no céu olhando por nós!" /it
+
+#DELAY 2
+#SOUNDEFFECT Assets/sounds/muvuca3
+A comunidade vai ao caos, barulho de tiro pro alto, rajadas de metralhadora, muita gritaria e fogos de artificio.
+
 
 **** [O que é isso?] -> pira
 ->END
@@ -212,7 +209,7 @@ Por que estou assim?
 = noia_droga
     ~ causa_da_pira = Droga
     ~ karma +=0.5
-Vejo o pedaço de aluminio onde estava um papel amargo que tomei mais ou menos 1h30 atrás...
+Vejo o pedaço de aluminio onde estava um papel amargo que tomei mais ou menos uma hora atrás...
 Quase me enlouqueci. Perdi a cabeça. Fritei.
 #ANIMATION: psicodelia   
 ->->
@@ -281,7 +278,6 @@ A voz de Cafuzo volta a ficar mais alto que da multidão
 ->a_chegada_dos_bico
 
 === a_chegada_dos_bico ===
-
 #IMAGE Assets/cenas/bicos.jpg
 #SOUNDEFFECT Assets/sounds/sirene
 Ouço uma sirene
@@ -300,7 +296,6 @@ Esses caras, sempre aparecendo aqui para encher o nosso saco.. mesmo a gente nã
 ~ karma-=1
 ** Tenta se acalmar, eu sei que eles fazem isso, mas nem todos são assim... -> reacao_bico.boa -> saida_dos_bico
 ~ karma+=1
-
 
 = saida_dos_bico
 
@@ -341,14 +336,28 @@ ruim
 // varia de acordo com a minha reacao
 
 {minha_reacao:
-- Boa: 
-- Ruim: 
+- Boa: Viu, no fim eles só vieram checar o que estava acontecendo. Prestando serviço eu imagino.
+- Ruim: Ainda bem que eles já foram tocados daqui, se não eu mesmo faria algo.
 }
+
+Uma criança passou correndo com um brinquedo que foi dado pelo Seu Jaci na igreja. Parece praga esses brinquedos, todas as crianças ricas da cidade tem. 
+
+Espera, como que o pastor conseguiu o dinheiro para financiar isso? Que simbolo é esse? É uma piramide invertida?
 
 * [Prosseguir]
 ->o_plano 
 
 === o_plano ===
+As crianças com brinquedos, os 'soldados' do Cafuzo estão todas com as armas mais novas. 
+As armas... elas também estão com esse simbolo? 
+Da onde está vindo esse dinheiro ? 
+No entanto para que? Qual é o objetivo disso ?
+Parando para pensar o Cafuzo tinha mencionado o pastor e o vereador, será que eles realmente...?
+Se antes já achava que estava entrando em uma paranoia agora tenho certeza, mas parece a única opção.
+Eles fizeram uma aliança entre eles.
+Tendo conversado bastante com eles, sei exatamente o que estão pensando.
+//Inserir a parte do objetivo do plano
+
 { karma > 3:
  reagir bem 
 -> discurso_contra_soc_sec
@@ -359,17 +368,47 @@ reagir mal
 }
 
 === discurso_contra_soc_sec ===
-
-a
+Eu nunca imaginaria que eles iriam se unir desse jeito, para um fim tão fútil. Status são somente péssimos rótulos. 
+Completamente desnecessário, fico feliz pelas crianças, no entanto se usassem esse dinheiro para melhorar a situação que temos hoje.
+Estufei o peito e segui até o palco. 
+Peguei o microfone.
+i Pessoas, eu não quero atrapalhar esse rolê que estamos tendo aqui, no entanto acho que a descoberta que eu acabei de ter é muito interessante e vocês vão querer saber.
+Respiro fundo
+#DELAY 0.5
+i Nosso querido anfitrião aqui. i Aponto para Cafuzo.
+i se uniu com o Vereador, vocês devem ter se perguntando por que os projetos de retirada de lixo das ruas pararam.
+Acredito que a falta do dinheiro para pagarem essa empresa realmente desmotivou eles a continuar a trabalhar. i 
+Olhando para o Vereador direciono minha atenção para Seu Jaci.
+i Dinheiro que foi direcionado para a igreja e gastos 'necessários'i
+i A não muito tempo Seu Jaci, o homem de Deus, disse que eu iria fazer muito bem para muitas pessoas no futuro, e talvez i
+i Impedir que eles tentem inverter a piramide social, pois na cabeça deles, essa é a solução. Quando na verdade estão colocando um alvo gigante no nosso peito. i
+//Dois inicio de frase diferente
+i Como se 
+i Essa sociedade (negrito)*secreta* que aqui foi criada para poder inverter uma situação // nao sei como continuar
 -> a_soc_sec
 === discurso_a_favor_soc_sec ===
-b
+...
+Parando para pensar isso não é uma ideia tão terrível assim. 
+Considerando a quantidade de batidas que nós sofremos, simples por estarmos cozinhando para nosssas familias com som um pouco mais alto.
+Aparentemente não podemos nem mais nos divertir, sempre sendo julgados, enquanto não fazemos nada diferente do resto da sociedade.
+Consigo ouvir meus passos no fundo da música, quando me dou conta estou caminhando até o palco.
+Isso precisa ser compartilhado, podemos mudar a situação da vida de muitos, no fim, estaremos todos juntos.
+Pego um microfone no chão e bato duas vezes nele para chamar atenção.
+i Dae galera! i
+Caminhei para o outro lado do palco calmamente.
+i Eu sei, que estou impedindo vocês de ouvir a nossa tão querida música. No entanto, o que vocês acham de podermos compartilhar momentos assim (terminar frase). i
+#DELAY 0.5
+i Deixa eu explicar melhor. Nós aqui sempre somos injustiçados, julgados e deixado de lado, mas graças ao plano que a nossa querida sociedade secreta desenvolveu... i
+i Sim, sim. Nosso querido anfitrião, que nos trouxe hoje aqui para essa maravilhosa festa, tem se unido ao pastor e ao vereador para. Inverter essa nossa situação. i
+i Mudar! i
+
+
 -> a_soc_sec
 
 
 
 === a_soc_sec ===
-// cena comum
+Enquanto ainda no palco 
 #IMAGE Assets/cenas/cena_comum.jpg
 
 { shuffle:
@@ -377,27 +416,79 @@ b
 	- ->nao_existe 
 }
 
-= existe
+=== existe === 
+Cafuzo chama a minha atenção de onde está, no meio da multidão que estava confusa diante do meu discurso.
 
-ela existe
-->END
-= nao_existe
+{shuffle:
+- -> a_favor
+- -> contra
+}
 
-viagem
-->END
+
+    = a_favor
+        Todo o medo e paranóia que estava sentindo antes desapareceriam do meu corpo. 
+        Estava enfim em um lugar de confiança.
+        i Fico feliz que nosso companheiro pensa assim do nosso plano. Não tinhamos compartilhado com vocês esse plano ainda, pois estava sendo lentamente implementado.
+        Afinal não queriamos lhes dar esperanças que podiam não se concretizar, mas o vendo falar percebo como erramos. Pois unidos somos muito mais fortes! 
+        *gritos de animação *
+        -> um_grito_na_multidao
+
+
+    = contra
+        Os olhos de Cafuzo me fuzilavam de onde eu estava. Talvez essa não tenha sido uma das minhas melhores decisões. 
+        As pessoas estavam animadas e apoiavam a minha ideia, que temos outras maneiras de corrigir os problemas que enfrentamos.
+        O sentimentos que antes gritavam dentro do meu corpo voltaram a ressoar. 
+        Antes de ser removido de lá Seu Jaci aparece perto do palco irritado falva sobre como eu iria me arrepdner de ter feito aquilo, que ao fazer o presságio que ele previa não iria mais acontecer.
+        -> um_grito_na_multidao
+
+==== nao_existe ===
+{shuffle:
+- -> a_favor
+- -> contra
+}
+    = a_favor
+        Seu Jaci se aproximou do palco, e levantou os braços chamando atenção das pessoas diante da confusão.
+        i Eu a algum tempo, previ que essa pessoa iria fazer uma boa ação diante da nossa vila, por mais que seus pensamentos estavam errados em termos uma... como ele disse? 
+        uma sociedade secreta. i
+        i Por mais que seu modo tenha sido confuso, ele vem aqui hoje para nos influenciar a sermos pessoas melhores, e nos por na situação melhor, por que nós merecemos i
+        i Somos todos filhos de Deus! Assim todos merecem uma vida boa!
+        As pessoas que eu tinha mencionado começaram a me olhar de maneira esquisita, como se não entendesse o que eu estava falando.
+        -> um_grito_na_multidao
+    
+    =contra 
+        Edvaldo, completamente irritado, dava para perceber olhando seu rosto, começou a subir no palco e tomou o microfone da minha mão.
+        i Essa, não é a situação mais apropriada para isso, no entanto diante do discurso desse inutil tive que fazer algo a respeito. i
+        i Não tem tido o tal desvio de dinheiro para poder bancar essa tal sociedade secreta louca que ele está falando. Jamais encostaria no dinheiro do povo. i
+        i Vim aqui para participar da festa do meu grande amigo Cafuzo, no entanto venho e além não poder aproveitar a situação sou ofendido de estar participando de uma ideia louca e paranoica dele. i
+        -> um_grito_na_multidao
+
 
 === um_grito_na_multidao ====
 
-quem é vocÊ 
+= grito_existe
+    Alguém na multidão ergue a voz de jeito que era para todos ouvirem.
+    ->quem_e_voce
+    
+= grito_nao_existe
+    Após eu descer do palco, alguém me chama para o canto verificando se eu estava bem.
+    ->quem_e_voce
+
+
+==== quem_e_voce
+
+Quem é você?
 
 #INPUT nome
 
 * É esse meu nome[]
-%nome% isso é...
+%nome%
 
-->END 
+->prologo
 
 === prologo ===
+
 prologo
+
 -> END
+
 

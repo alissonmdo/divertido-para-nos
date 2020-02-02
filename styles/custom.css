@@ -6,6 +6,15 @@ html {
   overflow: hidden;
 }
 
+.input-text {
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.61);
+  min-width: 200px; 
+  font-size: 3rem;
+  color: white;
+ text-align: center;
+}
+
 body {
   background-color: black;
   color: white;
@@ -30,11 +39,14 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+
+.opacity-zero {
+  opacity: 0;
+}
 .gameContainer {
-  background-color: rgba(94, 34, 0, 0.5);
+  background-color: rgba(63, 23, 0, 0.6);
   width: 100vw;
   height: 100vh;
-  border-radius: 20px;
   position: absolute;
   transition: none;
   align-items: center;
@@ -58,7 +70,7 @@ body {
 .game-menu {
   display: flex;
   flex-direction: column;
-  transition: ease-in-out 1s;
+  transition: ease-in-out 200ms;
 }
 
 .game-title {
@@ -73,6 +85,8 @@ body {
   height: 60%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-content: center;
   align-items: center;
   justify-items: center;
   width: 100%;
@@ -80,6 +94,7 @@ body {
 
 .timeline-container > * {
  width: 100%;
+ text-align: center;
 }
 .choices-container {
   height: 40%;
@@ -93,12 +108,13 @@ body {
 
 .choice-p {
   flex-grow: 1;
-  border: 2px solid rgb(185, 124, 44);
+  border: 2px solid rgb(255, 255, 0, 0.5);
   padding: 10px;
   font-size: 2rem;
   width: 100%;
   margin: 0;
-  color: rgb(185, 124, 44);
+  color: rgb(255, 255, 0, 0.5);
+  text-align: center;
 }
 
 .choice-p:hover {

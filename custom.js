@@ -1,7 +1,16 @@
+var gameMenu = document.getElementById('gameMenu');
+var gameContainer = document.getElementById('gameContainer');
+var timelineContainer = document.getElementById('timelineContainer');
+var choicesContainer = document.getElementById('choicesContainer');
+
 function startGame() {
-  document.getElementById('gameMenu').style.display = 'none';
-  document.getElementById('gameContainer').classList.remove(['shaking']);
-  document.getElementById('timelineContainer').classList.remove(['hidden']);
-  document.getElementById('choicesContainer').classList.remove(['hidden']);
-  continueStory(true);
+  gameMenu.classList.add(['opacity-zero']);
+  setTimeout(() => {
+    gameMenu.style.display = 'none';
+    timelineContainer.classList.remove(['hidden']);
+    choicesContainer.classList.remove(['hidden']);
+    choicesContainer.classList.remove('opacity-zero');
+    timelineContainer.classList.remove('opacity-zero');
+    continueStory(true);
+  }, 1000);
 }

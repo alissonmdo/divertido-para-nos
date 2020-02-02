@@ -96,18 +96,24 @@
                 }
 
                 if( splitTag && splitTag.property == "INPUT"){
-                    var div = document.createElement('div');
-                    div.id = "generico";
+                    var p = document.createElement('p');
+                    p.id = "generico";
                     //Cria input
                     var inputElement = document.createElement('input');
                     inputElement.type = "text";
                     inputElement.id = "name";
-                    div.appendChild(inputElement);
-                    timelineContainer.appendChild(div);
+                    inputElement.classList.add('input-text');
+                    p.appendChild(inputElement);
+                    timelineContainer.appendChild(p);
                 }
 
                 
                 if( splitTag && splitTag.property == "ANIMATION"){
+                    debugger;
+                    if (splitTag.val == "pira.gif") {
+                        var cena = document.getElementById('cena');
+                        cena.classList.add('bg-glitch');
+                    }
                 }
 
                 // CLASS: className

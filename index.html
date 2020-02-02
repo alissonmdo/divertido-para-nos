@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/custom.css">
     <link rel="stylesheet" href="styles/glitch.css">
     <link rel="stylesheet" href="styles/blinking.css">
+    <link rel="stylesheet" href="styles/background-glitch.css">
 
     <!-- <link rel="stylesheet" href="animated.css"> -->
 
@@ -24,14 +25,14 @@
     </div>
     <audio visible="false" id="backgroundMusic"></audio>
     <audio visible="false" id="soundEffects"></audio>
-    <div id="gameContainer" class="gameContainer ">
+    <div id="gameContainer" class="gameContainer">
         <div class="game-menu" id="gameMenu">
             <p class="game-title glitch" data-glitch="REVOLTA">REVOLTA</p>
             <button id="startGame" class="game-start blinking" data-glitch="COMEÇAR CAPÍTULO" onclick="startGame()">COMEÇAR
                 CAPÍTULO</button>
         </div>
-        <div class="timeline-container hidden" id="timelineContainer"></div>
-        <div class="choices-container hidden" id="choicesContainer"></div>
+        <div class="timeline-container hidden opacity-zero" id="timelineContainer"></div>
+        <div class="choices-container hidden opacity-zero" id="choicesContainer"></div>
     </div>
 
 

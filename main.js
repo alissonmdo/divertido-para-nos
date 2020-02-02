@@ -73,8 +73,6 @@
                 // Detect tags of the form "X: Y". Currently used for IMAGE and CLASS but could be
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
-                console.log(splitTag);
-                console.log("A tag["+i+"] = "+tag+ " a propriedade é "+ splitTag.property);
 
                 if( splitTag && splitTag.property == "SOUNDEFFECT"){
                     var soundSrc = document.getElementById('soundEffects');
@@ -83,21 +81,9 @@
                 }
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
-                    console.log("EU TENHO UMA IMAGEM");
                     var cols = document.getElementsByClassName('blurred-background');
-                    for(var i=0; i< cols.length; i++){
-//                        cols[i].style.backgroundImage = '#3399ff';
-//                        "url('./Assets/cenas/cafuzo.jpg')"
-                        var valor =
-                        cols[i].style.backgroundImage = "url('"+splitTag.value+"')";
-                    }
-//                    var div = document.querySelector('.blurred-background');
-//                    var imgDiv = document.getElementById('cena');
-//                    console.log(imgDiv);
-//                    console.log(imgDiv.style.backgroundColor);
-//                    var imgSrc = documen.querySelector('#cena');
-//                    console.log(imgSrc);\
-//                    imgDiv.src = splitTag.val;
+                    //Pega sempre o indice do fundo, é único que tem essa classe.
+                    cols[0].style.backgroundImage = "url('"+splitTag.val+"')";
                 }
 
                 // CLASS: className
@@ -141,7 +127,7 @@
             delay += 200.0;
         }
 
-        console.log(story.currentChoices);
+//        console.log(story.currentChoices);
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
@@ -257,7 +243,7 @@
     //  # PROPERTY: value
     // e.g. IMAGE: source path
     function splitPropertyTag(tag) {
-        var propertySplitIdx = tag.indexOf(" ") != null ? tag.indexOf(" ") : tag.indexOf(":") ;
+        var propertySplitIdx = tag.indexOf(" ");
         if( propertySplitIdx != null ) {
             var property = tag.substr(0, propertySplitIdx).trim();
             var val = tag.substr(propertySplitIdx+1).trim();

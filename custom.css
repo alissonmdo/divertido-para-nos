@@ -9,7 +9,6 @@ body {
 
 .blurred-background {
   background-color: rgba(0, 0, 0, 0.1);
-  background-image: url('./Assets/cenas/cafuzo.jpg');
   filter: blur(20px);
   -webkit-filter: blur(20px);
   height: 100%;

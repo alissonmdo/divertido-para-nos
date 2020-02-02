@@ -1,24 +1,25 @@
-CONST NADA = 0
-CONST DROGA = 1 
-CONST TRAUMA = 2
-CONST MUSICA = 3
-
-VAR causa_da_pira = NADA
 
 VAR karma =  0
 
 VAR conhece_a_soc_sec = false
+
 VAR soc_sec_existe = true
+
 VAR favoravel_a_soc_sec = true
 
-LIST Characters = Traficante, Parteira, Vereador, Pastor 
+LIST causa_da_pira = Droga, Musica, Trauma
 
--> a_soc_sec
+LIST pessoa_observada = Traficante, Vereador, Pastor 
 
-=== acorda ===
+// -> a_soc_sec
+-> acordou
+
+=== acordou ===
+#IMAGE /Assets/cenas/acorda.jpg
 Vultos.
 Som alto. 
 Luzes indo e voltando. 
+
 * [???] O que estou fazendo aqui?
 ** [Olhar em volta] -> se_ambienta
 
@@ -26,31 +27,68 @@ Luzes indo e voltando.
 
 === se_ambienta ===
 # CLEAR
+#IMAGE /Assets/cenas/ambienta-se.jpg
 Uma multidão ao meu redor.
 
 Percebo o funk estourando nas caixas de som nas laterais de um grande galpão.
 
 Estou na lagoinha.
 
-* [Concentrar]
-Lembrei! 
-É o aniversário de Cafuzo. 
+    * [Olhar para a direita] 
+    Eu olho para a direita, e vejo o Pastor.
+    ~ pessoa_observada = Pastor
+    ~ karma += 1
+    -> fichas.pastor -> porque_estou_aqui
+    
+    * [Olhar para a esquerda] 
+    Eu olho para a esquerda, e vejo o Vereador.
+    ~ pessoa_observada = Vereador
+    ~ karma += 1
+    -> fichas.vereador -> porque_estou_aqui
+    
+    * [Olhar para a frente] 
+    Eu olho para a direita, e vejo o Traficante.
+    ~ pessoa_observada = Traficante
+    ~ karma += 1
+    -> fichas.traficante -> porque_estou_aqui
 
 
-** [Quem é Cafuzo?] -> fichas.traficante -> conhece_cafuzo
+=== porque_estou_aqui ===
 
-= conhece_cafuzo
+{pessoa_observada:
+- Pastor:
+Lembrei me do presságio que o pastor me deu da ultima vez que o encontrei.
 
-* okay esse é cafuzo....[]
+- Vereador:
+a
 
-->percebe_a_pira
+- Traficante:
+a
+}
 
-// **  [Quem é Dona Néia?] -> fichas.parteira
-// **  [Quem é Seu Jaci?] -> fichas.pastor
-// **  [Quem é Edvaldo Candeia?] -> fichas.vereador
+* Então...[] é por isso que estou aqui!
+
+#DELAY 1.5
+
+#SOUNDEFFECT microfonia
+
+Escuto uma  &&[warning]MICROFONIA&&
+
+#DELAY 1.5
+
+Olho para o palco e lá está Cafuzo...
+->opcoes
+
+= opcoes
+
+** [Prestar atenção] -> discurso_traficante
+
+** [Quem é Cafuzo?] -> fichas.traficante -> opcoes
+
 
 ==== fichas ===
     = traficante
+    #IMAGE /Assets/cenas/cafuzo.jpg
     Cafuzo é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns.
     Já matou muito. 
     
@@ -61,6 +99,7 @@ Lembrei!
     
 
     = vereador
+    #IMAGE /Assets/cenas/edvaldo.jpg
     Edvaldo Rondon
     
     {conhece_a_soc_sec:
@@ -70,7 +109,7 @@ Lembrei!
 
     = pastor
     Seu Jaci
-    
+    #IMAGE /Assets/cenas/pastor.jpg
     {conhece_a_soc_sec:
     Tem poder pra influenciar grande parte da comunidade
     }
@@ -78,6 +117,7 @@ Lembrei!
 
     = parteira
     Dona Néia
+    #IMAGE /Assets/cenas/parteira.jpg
     
     {conhece_a_soc_sec:
     Conselheira, conhece todas as mães. As crianças a respeitam.
@@ -86,38 +126,49 @@ Lembrei!
 -> percebe_a_pira
 
 === percebe_a_pira ===
+#IMAGE /Assets/cenas/percebe_pira.jpg
 MEU DEUS TO PARANOICO SOCORO
 
-ESCUTO NO PALCO UMA MICROFONIA
 
 * [olhar para o palco] -> discurso_traficante
 
 === discurso_traficante ===
+#IMAGE /Assets/cenas/cafuzo.jpg
 CAFUZO:
 
-"Graças a Deus e a FIRMA esse evento tá sendo realizado e concretizado! Tamo aqui mais um ano familia!"
+/it "Graças a Deus e a &&[danger]FIRMA&& esse evento tá sendo  realizado e concretizado! Tamo aqui mais um ano familia!" /it
 
-"Muita coletividade na quebrada, dinheiro no bolso. Sem miséria, e é nóis!!!
-Vamos brindar o dia de hoje, que o amanhã só pertence a Deus, a vida é loka!"
+# DELAY 1
+
+/it "Muita coletividade na quebrada, dinheiro no bolso. Sem miséria, e é nóis!!!" /it
+
+
+# DELAY 1
+
+/it "Vamos brindar o dia de hoje, que o amanhã só pertence a Deus, a vida é loka!" /it
+
+
+// mencionar personagens da sociedade vereador pastor
 
 * [entao é isso?] -> pira_ativada
-
 ->END
 
 === pira_ativada ===
+#IMAGE /Assets/cenas/pira_ativada.jpg
 Okay, estou começando a ficar paranoico
 
 Por que estou assim?
 * Usei uma droga
-    ~ causa_da_pira = DROGA
+    ~ causa_da_pira = Droga
     ~ karma +=0.5
 * A volta de um trauma
-    ~ causa_da_pira = TRAUMA
+    ~ causa_da_pira = Trauma
     ~ karma +=1
 * A influencia da musica
-    ~ causa_da_pira = MUSICA
+    ~ causa_da_pira = Musica
     ~ karma -=0.75
 - Então é isso 
+
 * Prestar atenção no discurso de Cafuzo 
 ->ressoa 
 
@@ -126,73 +177,44 @@ Por que estou assim?
 
 RESSOA FRASE
 {causa_da_pira:
-- TRAUMA: trauma comigo? -> trauma
-- DROGA: droga usei sim porra -> droga
-- MUSICA: musica daora? -> musica
+- Trauma: trauma comigo? -> trauma
+- Droga: droga usei sim porra -> droga
+- Musica: musica daora? -> musica
 }
 
 = trauma
 * reflexão sobre trauma[]
-->a_soc_sec
+->a_chegada_dos_bico
 
 = droga
 * reflexão sobre droga[]
-->a_soc_sec
+->a_chegada_dos_bico
 
 = musica
 * reflexão sobre musica[]
-->a_soc_sec
+->a_chegada_dos_bico
 
-
--> a_soc_sec
-
-=== a_soc_sec ===
-// cena comum
-Então essa é a sociedade secreta.
-~ conhece_a_soc_sec = true
-
-{soc_sec_existe:
- a soc sec existe
-    { shuffle:
-    	- 	karma \+.25 
-    	~ karma += 0.25
-    	- 	karma \+.75 
-    	~ karma += 0.75
-    	- karma +.85 
-    		'da pra colocar mais coisa em baixo. 
-    	~ karma += 0.85
-    }
-- else:
-não existe a soc sec
-}
-
-sera que aparece cafuzo diferente 
-
-**  [Cafuzo] -> fichas.traficante ->
-
-karma {karma}
-
-
-->END
-=== o_plano ===
-
-outra vez 
-* então é isso[]
-bibib bobobo
-
-** o plano[]
-
--> a_chegada_dos_bico
-->END 
 
 === a_chegada_dos_bico ===
+#IMAGE /Assets/cenas/bicos.jpg
+Ouço uma sirene
 * a chegada dos bico[]
 
 {causa_da_pira:
-- TRAUMA: -> dialogo_bico.trauma
-- DROGA: -> dialogo_bico.droga
-- MUSICA: -> dialogo_bico.musica
+- Trauma: -> dialogo_bico.trauma
+- Droga: -> dialogo_bico.droga
+- Musica: -> dialogo_bico.musica
 }
+
+** reage ruim
+~ karma-=1
+** reage bem
+~ karma+=1
+
+
+- os bico vão embora
+
+-> o_plano
 ->END 
 
 === dialogo_bico
@@ -213,37 +235,62 @@ bibib bobobo
 varia de acordo com a causa da pira
 
 {causa_da_pira:
-- TRAUMA: REFLEXAO TRAUMA
-- DROGA: REFLEXAO droga
-- MUSICA: REFLEXAO musica
+- Trauma: REFLEXAO Trauma
+- Droga: REFLEXAO droga
+- Musica: REFLEXAO musica
 }
 
 * terminar[]
 ->END 
 
-=== novo_lider ===
-varia de acordo com a causa da pira
+=== o_plano ===
+{ karma > 3:
+ reagir bem 
+-> discurso_contra_soc_sec
+- else:
+
+reagir mal
+-> discurso_a_favor_soc_sec
+}
+
+=== discurso_contra_soc_sec ===
+
+a
+-> a_soc_sec
+=== discurso_a_favor_soc_sec ===
+b
+-> a_soc_sec
+
+
+
+=== a_soc_sec ===
+// cena comum
+#IMAGE /Assets/cenas/cena_comum.jpg
+
+{ shuffle:
+	- ->existe
+	- ->nao_existe 
+}
+
+= existe
+
+ela existe
+->END
+= nao_existe
+
+viagem
+->END
+
+=== um_grito_na_multidao ====
+
+quem é vocÊ 
+
+#INPUT TRUE
+
+
 ->END 
 
-=== novo_lider_contra_socsec ===
-varia de acordo com a causa da pira
-->END 
-
-=== novo_lider_da_socsec ===
-varia de acordo com a causa da pira
-->END 
-
-=== pergunta_do_pastor ===
-pergunta do pastor
-2 opções karma+ karma
--
-->END 
-
-=== discurso_randomico ===
-varia de acordo com a causa da pira
-->END 
-
-=== um_grito_na_multidao ===
-varia de acordo com a causa da pira
-->END 
+=== prologo ===
+prologo
+-> END
 

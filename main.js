@@ -75,17 +75,18 @@
                 var splitTag = splitPropertyTag(tag);
 
 
-                if( splitTag && splitTag.property == "SOUND"){
+                if( splitTag && splitTag.property == "SOUNDEFFECT"){
                     var soundSrc = document.querySelector('#soundEffects');
                     soundSrc.src = splitTag.val;
                     soundSrc.play();
                 }
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
-                    console.log("EU TENHO UMA IMAGEM");
-                    var imgSrc = document.querySelector('#cena');
-                    console.log(imgSrc);
-                    imgSrc.src = splitTag.val;
+//                    console.log("EU TENHO UMA IMAGEM");
+                    var imgDiv = document.getElementById('cena');
+//                    var imgSrc = documen.querySelector('#cena');
+//                    console.log(imgSrc);\
+                    imgDiv.src = splitTag.val;
                 }
 
                 // CLASS: className

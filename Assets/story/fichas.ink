@@ -7,7 +7,7 @@
     {nome_traficante} é o comandante do tráfico na região. 
     Também é chamado de Manda-Chuva por alguns. 
     É respeitado pela comunidade, e temido por seus inimigos.
-    #DELAY 1
+    #DELAY 0.7
     Já matou muito. Neguinho deveria pensar duas vezes antes de mexer com ele.
     Minha irmã era a fiel dele.
      
@@ -22,7 +22,7 @@
     VAR nome_vereador = "Edvaldo Candeia"
     
     {nome_vereador} é vereador... Deveria cuidar da nossa comunidade.
-    #DELAY 1
+    #DELAY 0.7
     Porco safado! Descobri esses dias que está desviando dinhero da prefeitura! 
     Nada que uma boa sova não resolva...
     
@@ -35,7 +35,7 @@
     VAR nome_pastor = "Seu Jaci"
     
     {nome_pastor} é o pastor da maior igreja do pedaço.
-    #DELAY 1
+    #DELAY 0.7
     O homem é a imagem da boa conduta... 
     Tem muita influência sobre grande parte da comunidade
     #IMAGE Assets/cenas/pastor.jpg
@@ -49,7 +49,7 @@
     
     {nome_conhecido} é um conhecido. Sempre ta no role.
     
-    #DELAY 1
+    #DELAY 0.7
     Não é alguém que eu consigo confiar. 
     É gente boa, geralmente a galera gosta dele. 
     Mas já me passou pra trás algumas vezes. Amigo da onça.

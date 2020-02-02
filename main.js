@@ -1,6 +1,7 @@
 (function(storyContent) {
 
     backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
+    nome = "protagonista";
     // Create ink story from the content using inkjs
     story = new inkjs.Story(storyContent);
 
@@ -45,7 +46,6 @@
     function continueStory(firstTime) {
 
         if(firstTime){
-            document.getElementById('gameMenu').style.display = 'none';
             var soundDiv = document.getElementById('backgroundMusic');
             soundDiv.src = backgroundMusicSrc;
             soundDiv.play();
@@ -64,12 +64,10 @@
             // Get ink to generate the next paragraph
             var paragraphText = story.Continue();
             var tags = story.currentTags;
-
             // Any special tags included with this line
             var customClasses = [];
             for(var i=0; i<tags.length; i++) {
                 var tag = tags[i];
-
                 // Detect tags of the form "X: Y". Currently used for IMAGE and CLASS but could be
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
@@ -86,6 +84,24 @@
                     cols[0].style.backgroundImage = "url('"+splitTag.val+"')";
                 }
 
+                if( splitTag && splitTag.property == "INPUT"){
+                    var div = document.createElement('div');
+                    div.id = "generico";
+                    //Cria input
+                    var inputElement = document.createElement('input');
+                    inputElement.type = "text";
+                    inputElement.id = "name";
+                    div.appendChild(inputElement);
+                    timelineContainer.appendChild(div);
+                }
+
+                if( splitTag && splitTag.property == "DELAY"){
+                //Mexe no delay da mensagem e retorna pro delay antigo
+                }
+
+                if( splitTag && splitTag.property == "ANIMATION"){
+                }
+
                 // CLASS: className
                 else if( splitTag && splitTag.property == "CLASS" ) {
                     customClasses.push(splitTag.val);
@@ -95,10 +111,8 @@
                 // RESTART - clears everything and restarts the story from the beginning
                 else if( tag == "CLEAR" || tag == "RESTART" ) {
                     removeAll("p");
+                    removeAll("a");
                     removeAll("img");
-
-                    // Comment out this line if you want to leave the header visible when clearing
-//                    setVisible(".header", false);
 
                     if( tag == "RESTART" ) {
                         restart();
@@ -114,8 +128,6 @@
             paragraphElement.innerHTML = replaceInternalTags(paragraphText)
             timelineContainer.appendChild(paragraphElement);
 
-//            console.log(paragraphText);
-
             customClasses.push("texto-historia");
             // Add any custom classes derived from ink tags
             for(var i=0; i<customClasses.length; i++)
@@ -127,24 +139,31 @@
             delay += 200.0;
         }
 
-//        console.log(story.currentChoices);
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
 
+            // Create paragraph with choice text
+            var paragraphInsideChoice = document.createElement('p');
+            paragraphInsideChoice.innerHTML = `${choice.text}`;
+            paragraphInsideChoice.classList.add("choice-p");
             // Create paragraph with anchor element
-            var choiceParagraphElement = document.createElement('p');
-            choiceParagraphElement.classList.add("choice");
-            choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
-            choicesContainer.appendChild(choiceParagraphElement);
+            var choiceAnchorElement = document.createElement('a');
+            choiceAnchorElement.innerText = ``
+            choiceAnchorElement.classList.add("choice-a");
+            choiceAnchorElement.href = '#';
+
+            choiceAnchorElement.innerHTML = paragraphInsideChoice.outerHTML;
+            choicesContainer.appendChild(choiceAnchorElement);
 
             // Fade choice in after a short delay
-            showAfter(delay, choiceParagraphElement);
+            showAfter(delay, choiceAnchorElement);
             delay += 200.0;
 
             // Click on choice
-            var choiceAnchorEl = choiceParagraphElement.querySelectorAll("a")[0];
+            var choiceAnchorEl = choiceAnchorElement.querySelectorAll("p")[0];
             choiceAnchorEl.addEventListener("click", function(event) {
+                setNome();
 
                 // Don't follow <a> link
                 event.preventDefault();
@@ -152,6 +171,7 @@
                 // Remove all existing choices
                 //Limpa texto após a escolha
                 removeAll("p");
+                removeAll("a");
                 removeAll("p.choice");
 
                 // Tell the story where to go next
@@ -256,17 +276,17 @@
         return null;
     }
 
-    function tocaMusica(tag, src){
-        var soundDiv = document.querySelector(tag);
-        soundDiv.srv = src;
-        console.log(soundDiv.src);
-        soundDiv.play();
-    }
-
     function replaceInternalTags(paragraph){
         var newP;
         newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
         newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
         newP = newP.replace(/%nome%/i,nome);
         return newP;
+    }
+
+    function setNome(){
+        if(document.getElementById("name") != null){
+            nome = document.getElementById("name").value;
+            document.getElementById('generico').style.display = 'none';
+        }
     }

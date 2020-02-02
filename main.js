@@ -267,5 +267,6 @@
         var newP;
         newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
         newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
+        newP = newP.replace(/%nome%/i,nome);
         return newP;
     }

@@ -35,29 +35,33 @@ Consigo distinguir o funk estourado nas caixas de som nas laterais de um grande 
 Estou na lagoinha.
 
     * [Olhar para a direita] 
-    Eu olho para a direita, e vejo o Pastor.
+    Eu olho para a direita, e vejo {nome_pastor}.
     ~ pessoa_observada = Pastor
     ~ karma += 1
     -> fichas.pastor -> porque_estou_aqui
     
     * [Olhar para a esquerda] 
-    Eu olho para a esquerda, e vejo o Vereador.
+    Eu olho para a esquerda, e vejo {nome_vereador}.
     ~ pessoa_observada = Vereador
     ~ karma += 1
     -> fichas.vereador -> porque_estou_aqui
     
     * [Olhar para a frente] 
-    Eu olho para a direita, e vejo o Traficante.
+    Eu olho para a direita, e vejo {nome_traficante}.
     ~ pessoa_observada = Traficante
     ~ karma += 1
     -> fichas.traficante -> porque_estou_aqui
 
 ==== fichas ===
     = traficante
-    #IMAGE Assets/cenas/cafuzo.jpg
-    Cafuzo é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns.
-    Já matou muito. 
+    #IMAGE Assets/cenas/{nome_traficante}.jpg
+    VAR nome_traficante = "Cafuzo"
     
+    {nome_traficante} é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns. É respeitado pela comunidade, e temido por seus inimigos.
+    Já matou muito. Neguinho deveria pensar duas vezes antes de mexer com ele.
+    
+    {nome_traficante}
+     
     {conhece_a_soc_sec:
     Ele está reparando um exercito. Muitas armas
     }
@@ -66,7 +70,9 @@ Estou na lagoinha.
 
     = vereador
     #IMAGE Assets/cenas/edvaldo.jpg
-    Edvaldo Rondon
+    VAR nome_vereador = "Edvaldo Candeia"
+    
+    {nome_vereador}
     
     {conhece_a_soc_sec:
     Porco safado! Descobri esses dias que está desviando dinhero da prefeitura! 
@@ -75,21 +81,23 @@ Estou na lagoinha.
     ->->
 
     = pastor
-    Seu Jaci
+    VAR nome_pastor = "Seu Jaci"
+    
+    {nome_pastor}
     #IMAGE Assets/cenas/pastor.jpg
     {conhece_a_soc_sec:
     O homem é a imagem da boa conduta... Tem muita influência sobre grande parte da comunidade
     }
     ->->
 
-    = parteira
-    Dona Néia
-    #IMAGE Assets/cenas/parteira.jpg
+    // = parteira
+    // Dona Néia
+    // #IMAGE Assets/cenas/parteira.jpg
     
-    {conhece_a_soc_sec:
-    Conselheira, conhece todas as mães. As crianças a respeitam.
-    }
-    ->->
+    // {conhece_a_soc_sec:
+    // Conselheira, conhece todas as mães. As crianças a respeitam.
+    // }
+    // ->->
 
 
 === porque_estou_aqui ===
@@ -102,7 +110,7 @@ Lembrei me do presságio que o pastor me deu da ultima vez que o encontrei.
 a
 
 - Traficante:
-a
+Ele namorava minha irmã.
 }
 
 * Então...[] é por isso que estou aqui!
@@ -115,14 +123,14 @@ Escuto uma  &&[warning]MICROFONIA&&
 
 #DELAY: 1.5
 
-Olho para o palco e lá está Cafuzo...
+Olho para o palco e lá está {nome_traficante}...
 ->opcoes
 
 = opcoes
 
 ** [Prestar atenção] -> discurso_traficante
 
-** [Quem é Cafuzo?] -> fichas.traficante -> opcoes
+** [Quem é {nome_traficante}?] -> fichas.traficante -> opcoes
 
 
 
@@ -136,8 +144,8 @@ MEU DEUS TO PARANOICO SOCORO
 * [olhar para o palco] -> discurso_traficante
 
 === discurso_traficante ===
-#IMAGE Assets/cenas/cafuzo.jpg
-CAFUZO:
+#IMAGE Assets/cenas/{nome_traficante}.jpg
+{nome_traficante}:
 
 /it "Graças a Deus e a &&[danger]FIRMA&& esse evento tá sendo  realizado e concretizado! Tamo aqui mais um ano familia!" /it
 
@@ -172,7 +180,7 @@ Por que estou assim?
     ~ karma -=0.75
 - Então é isso 
 
-* Prestar atenção no discurso de Cafuzo 
+* Prestar atenção no discurso de {nome_traficante} 
 ->ressoa 
 
 
@@ -288,8 +296,10 @@ viagem
 
 quem é vocÊ 
 
-#INPUT TRUE
+#INPUT nome
 
+* É esse meu nome[]
+%nome% isso é...
 
 ->END 
 

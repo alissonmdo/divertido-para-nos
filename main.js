@@ -134,6 +134,7 @@
             var paragraphElement = document.createElement('p');
             // Parse and replace
 
+            console.log(paragraphText);
             paragraphElement.innerHTML = replaceInternalTags(paragraphText)
             timelineContainer.appendChild(paragraphElement);
 
@@ -287,7 +288,6 @@
 
     function replaceInternalTags(paragraph){
         var newP;
-        var nome;
         newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
         newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
         newP = newP.replace(/%nome%/i,nome);
@@ -297,6 +297,9 @@
     function setNome(){
         if(document.getElementById("name") != null){
             nome = document.getElementById("name").value;
+            if(nome.length <= 0){
+                nome = 'Protagonista';
+            }
             document.getElementById('generico').style.display = 'none';
         }
     }

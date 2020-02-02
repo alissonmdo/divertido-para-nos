@@ -1,6 +1,6 @@
 (function(storyContent) {
 
-    backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
+    backgroundMusicSrc = "Assets/sounds/racha.mp3"
     nome = "protagonista";
     // Create ink story from the content using inkjs
     story = new inkjs.Story(storyContent);

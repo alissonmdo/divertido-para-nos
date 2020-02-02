@@ -9,10 +9,10 @@ html {
 .input-text {
   background: none;
   border: 2px solid rgba(255, 255, 255, 0.61);
-  min-width: 200px; 
+  min-width: 200px;
   font-size: 3rem;
   color: white;
- text-align: center;
+  text-align: center;
 }
 
 body {
@@ -90,11 +90,13 @@ body {
   align-items: center;
   justify-items: center;
   width: 100%;
+  padding: 2vh 4vw;
+
 }
 
 .timeline-container > * {
- width: 100%;
- text-align: center;
+  width: 100%;
+  text-align: center;
 }
 .choices-container {
   height: 40%;
@@ -139,7 +141,7 @@ body {
   font-style: italic;
   font-weight: bold;
   cursor: pointer;
-} 
+}
 
 .hidden {
   display: none;

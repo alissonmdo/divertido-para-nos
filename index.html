@@ -8,8 +8,11 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="custom.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/glitch.css">
+    <link rel="stylesheet" href="styles/blinking.css">
+
     <!-- <link rel="stylesheet" href="animated.css"> -->
 
 </head>
@@ -18,19 +21,17 @@
 
     <div class="outerContainer">
         <div class="blurred-background" id="cena"></div>
-
-<!--        <div class="cenaFundo"><img id="cena" src="Assets/cenas/cafuzo.jpg" /></div>-->
-        <!-- <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">WRITTEN IN INK</a></h3> -->
     </div>
     <audio visible="false" id="backgroundMusic"></audio>
     <audio visible="false" id="soundEffects"></audio>
-    <div id="gameContainer" class="gameContainer shaking">
+    <div id="gameContainer" class="gameContainer ">
         <div class="game-menu" id="gameMenu">
-            <h1 class="game-title">REVOLTA</h1>
-            <button id="startGame" class="game-start" onclick="startGame()">COMEÇAR CAPÍTULO</button>
+            <p class="game-title glitch" data-glitch="REVOLTA">REVOLTA</p>
+            <button id="startGame" class="game-start blinking" data-glitch="COMEÇAR CAPÍTULO" onclick="startGame()">COMEÇAR
+                CAPÍTULO</button>
         </div>
-        <div class="timeline-container" id="timelineContainer"></div>
-        <div class="choices-container" id="choicesContainer"></div>
+        <div class="timeline-container hidden" id="timelineContainer"></div>
+        <div class="choices-container hidden" id="choicesContainer"></div>
     </div>
 
 

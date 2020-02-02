@@ -90,9 +90,9 @@
                 }
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
-                    var cols = document.getElementsByClassName('blurred-background');
+                    var cena = document.getElementById('cena');
                     //Pega sempre o indice do fundo, é único que tem essa classe.
-                    cols[0].style.backgroundImage = "url('"+splitTag.val+"')";
+                    cena.style.backgroundImage = "url('"+splitTag.val+"')";
                 }
 
                 if( splitTag && splitTag.property == "INPUT"){

@@ -11,12 +11,13 @@ body {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 .blurred-background {
-  background-color: rgba(0, 0, 0, 0.1);
-  filter: blur(10px);
-  -webkit-filter: blur(10px);
+  filter: blur(15px);
+  -webkit-filter: blur(15px);
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -30,13 +31,11 @@ body {
   overflow: hidden;
 }
 .gameContainer {
-  background: rgba(136, 22, 14, 0.178);
+  background-color: rgba(94, 34, 0, 0.5);
   width: 100vw;
   height: 100vh;
   border-radius: 20px;
   position: absolute;
-  /* top: 4vh; */
-  /* left: 2.5vw; */
   transition: none;
   align-items: center;
   justify-content: center;
@@ -45,6 +44,8 @@ body {
   display: flex;
   flex-direction: column;
   z-index: 20;
+  margin: 0;
+  overflow: hidden;
 }
 
 .texto-historia {
@@ -63,14 +64,31 @@ body {
 .game-title {
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
   font-size: 5rem;
+  font-weight: 900;
+  position: relative;
+  animation-iteration-count: infinite;
 }
 
+.timeline-container {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.timeline-container > * {
+ width: 100%;
+}
 .choices-container {
+  height: 40%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
   padding: 0 2%;
+  margin: 0;
 }
 
 .choice-p {
@@ -104,11 +122,11 @@ body {
   font-size: 2rem;
   font-style: italic;
   font-weight: bold;
-  animation-name: shake;
-  animation-duration: 0.8s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
   cursor: pointer;
+} 
+
+.hidden {
+  display: none;
 }
 
 .game-start:hover {

@@ -45,9 +45,8 @@
     function continueStory(firstTime) {
 
         if(firstTime){
-            var soundDiv = document.getElementById('backgroundMusic');
             document.getElementById('gameMenu').style.display = 'none';
-    //        tocaMusica(soundDiv, backgroundMusicSrc);
+            var soundDiv = document.getElementById('backgroundMusic');
             soundDiv.src = backgroundMusicSrc;
             soundDiv.play();
             soundDiv.loop = true;
@@ -70,25 +69,35 @@
             var customClasses = [];
             for(var i=0; i<tags.length; i++) {
                 var tag = tags[i];
-                console.log("A tag["+i+"] = "+tag);
 
                 // Detect tags of the form "X: Y". Currently used for IMAGE and CLASS but could be
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
-
+                console.log(splitTag);
+                console.log("A tag["+i+"] = "+tag+ " a propriedade é "+ splitTag.property);
 
                 if( splitTag && splitTag.property == "SOUNDEFFECT"){
-                    var soundSrc = document.querySelector('#soundEffects');
+                    var soundSrc = document.getElementById('soundEffects');
                     soundSrc.src = splitTag.val;
                     soundSrc.play();
                 }
                 // IMAGE: src
                 if( splitTag && splitTag.property == "IMAGE" ) {
-//                    console.log("EU TENHO UMA IMAGEM");
-                    var imgDiv = document.getElementById('cena');
+                    console.log("EU TENHO UMA IMAGEM");
+                    var cols = document.getElementsByClassName('blurred-background');
+                    for(var i=0; i< cols.length; i++){
+//                        cols[i].style.backgroundImage = '#3399ff';
+//                        "url('./Assets/cenas/cafuzo.jpg')"
+                        var valor =
+                        cols[i].style.backgroundImage = "url('"+splitTag.value+"')";
+                    }
+//                    var div = document.querySelector('.blurred-background');
+//                    var imgDiv = document.getElementById('cena');
+//                    console.log(imgDiv);
+//                    console.log(imgDiv.style.backgroundColor);
 //                    var imgSrc = documen.querySelector('#cena');
 //                    console.log(imgSrc);\
-                    imgDiv.src = splitTag.val;
+//                    imgDiv.src = splitTag.val;
                 }
 
                 // CLASS: className
@@ -119,7 +128,7 @@
             paragraphElement.innerHTML = replaceInternalTags(paragraphText)
             timelineContainer.appendChild(paragraphElement);
 
-            console.log(paragraphText);
+//            console.log(paragraphText);
 
             customClasses.push("texto-historia");
             // Add any custom classes derived from ink tags
@@ -159,8 +168,6 @@
                 removeAll("p");
                 removeAll("p.choice");
 
-//                console.log(choice.sourcePath);
-//                if(choice.sourcePath.contains(""))
                 // Tell the story where to go next
                 story.ChooseChoiceIndex(choice.index);
 
@@ -198,34 +205,6 @@
         el.classList.add("hide");
         setTimeout(function() { el.classList.remove("hide") }, delay);
     }
-
-    // Scrolls the page down, but no further than the bottom edge of what you could
-    // see previously, so it doesn't go too far.
-//    function scrollDown(previousBottomEdge) {
-//
-//        // Line up top of screen with the bottom of where the previous content ended
-//        var target = previousBottomEdge;
-//        console.log(target);
-//
-//        // Can't go further than the very bottom of the page
-//        var limit = outerScrollContainer.scrollHeight - outerScrollContainer.clientHeight;
-//        if( target > limit ) target = limit;
-//
-//        var start = outerScrollContainer.scrollTop;
-//
-//        var dist = target - start;
-//        var duration = 300 + 300*dist/100;
-//        var startTime = null;
-//        function step(time) {
-//            if( startTime == null ) startTime = time;
-//            var t = (time-startTime) / duration;
-//            var lerp = 3*t*t - 2*t*t*t; // ease in/out
-//            outerScrollContainer.scrollTo(0, (1.0-lerp)*start + lerp*target);
-//            if( t < 1 ) requestAnimationFrame(step);
-//        }
-//        requestAnimationFrame(step);
-//    }
-
     // The Y coordinate of the bottom end of all the story content, used
     // for growing the container, and deciding how far to scroll.
     function contentBottomEdgeY() {
@@ -278,7 +257,7 @@
     //  # PROPERTY: value
     // e.g. IMAGE: source path
     function splitPropertyTag(tag) {
-        var propertySplitIdx = tag.indexOf(":");
+        var propertySplitIdx = tag.indexOf(" ") != null ? tag.indexOf(" ") : tag.indexOf(":") ;
         if( propertySplitIdx != null ) {
             var property = tag.substr(0, propertySplitIdx).trim();
             var val = tag.substr(propertySplitIdx+1).trim();

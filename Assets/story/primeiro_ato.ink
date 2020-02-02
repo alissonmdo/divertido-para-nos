@@ -15,10 +15,10 @@ LIST pessoa_observada = Traficante, Vereador, Pastor
 -> acordou
 
 === acordou ===
-#IMAGE: /Assets/cenas/acorda.jpg
+#IMAGE Assets/cenas/acorda.jpg
 Vultos.
 Som alto. 
-Luzes indo e voltando. 
+Luzes esstrobocópicas, indo e voltando. 
 
 * [???] O que estou fazendo aqui?
 ** [Olhar em volta] -> se_ambienta
@@ -27,10 +27,10 @@ Luzes indo e voltando.
 
 === se_ambienta ===
 #CLEAR
-#IMAGE: /Assets/cenas/ambienta-se.jpg
+#IMAGE Assets/cenas/ambienta-se.jpg
 Uma multidão ao meu redor.
 
-Percebo o funk estourando nas caixas de som nas laterais de um grande galpão.
+Consigo distinguir o funk estourado nas caixas de som nas laterais de um grande galpão.
 
 Estou na lagoinha.
 
@@ -52,6 +52,45 @@ Estou na lagoinha.
     ~ karma += 1
     -> fichas.traficante -> porque_estou_aqui
 
+==== fichas ===
+    = traficante
+    #IMAGE Assets/cenas/cafuzo.jpg
+    Cafuzo é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns.
+    Já matou muito. 
+    
+    {conhece_a_soc_sec:
+    Ele está reparando um exercito. Muitas armas
+    }
+    ->->
+    
+
+    = vereador
+    #IMAGE Assets/cenas/edvaldo.jpg
+    Edvaldo Rondon
+    
+    {conhece_a_soc_sec:
+    Porco safado! Descobri esses dias que está desviando dinhero da prefeitura! 
+    Nada que uma sova não resolva...
+    }
+    ->->
+
+    = pastor
+    Seu Jaci
+    #IMAGE Assets/cenas/pastor.jpg
+    {conhece_a_soc_sec:
+    O homem é a imagem da boa conduta... Tem muita influência sobre grande parte da comunidade
+    }
+    ->->
+
+    = parteira
+    Dona Néia
+    #IMAGE Assets/cenas/parteira.jpg
+    
+    {conhece_a_soc_sec:
+    Conselheira, conhece todas as mães. As crianças a respeitam.
+    }
+    ->->
+
 
 === porque_estou_aqui ===
 
@@ -70,7 +109,7 @@ a
 
 #DELAY: 1.5
 
-#SOUNDEFFECT: /Assets/sounds/microfonia.wav
+#SOUNDEFFECT Assets/sounds/microfonia.wav
 
 Escuto uma  &&[warning]MICROFONIA&&
 
@@ -86,64 +125,28 @@ Olho para o palco e lá está Cafuzo...
 ** [Quem é Cafuzo?] -> fichas.traficante -> opcoes
 
 
-==== fichas ===
-    = traficante
-    #IMAGE /Assets/cenas/cafuzo.jpg
-    Cafuzo é o comandante do tráfico na região. Também é chamado de Manda-Chuva por alguns.
-    Já matou muito. 
-    
-    {conhece_a_soc_sec:
-    Ele está reparando um exercito. Muitas armas
-    }
-    ->->
-    
 
-    = vereador
-    #IMAGE /Assets/cenas/edvaldo.jpg
-    Edvaldo Rondon
-    
-    {conhece_a_soc_sec:
-    Desvia dinhero da prefeitura, direciona para a comunidade
-    }
-    ->->
-
-    = pastor
-    Seu Jaci
-    #IMAGE /Assets/cenas/pastor.jpg
-    {conhece_a_soc_sec:
-    Tem poder pra influenciar grande parte da comunidade
-    }
-    ->->
-
-    = parteira
-    Dona Néia
-    #IMAGE /Assets/cenas/parteira.jpg
-    
-    {conhece_a_soc_sec:
-    Conselheira, conhece todas as mães. As crianças a respeitam.
-    }
-    ->->
 -> percebe_a_pira
 
 === percebe_a_pira ===
-#IMAGE /Assets/cenas/percebe_pira.jpg
+#IMAGE Assets/cenas/percebe_pira.jpg
 MEU DEUS TO PARANOICO SOCORO
 
 
 * [olhar para o palco] -> discurso_traficante
 
 === discurso_traficante ===
-#IMAGE /Assets/cenas/cafuzo.jpg
+#IMAGE Assets/cenas/cafuzo.jpg
 CAFUZO:
 
 /it "Graças a Deus e a &&[danger]FIRMA&& esse evento tá sendo  realizado e concretizado! Tamo aqui mais um ano familia!" /it
 
-# DELAY 1
+#DELAY 1
 
 /it "Muita coletividade na quebrada, dinheiro no bolso. Sem miséria, e é nóis!!!" /it
 
 
-# DELAY 1
+#DELAY 1
 
 /it "Vamos brindar o dia de hoje, que o amanhã só pertence a Deus, a vida é loka!" /it
 
@@ -154,7 +157,7 @@ CAFUZO:
 ->END
 
 === pira_ativada ===
-#IMAGE /Assets/cenas/pira_ativada.jpg
+#IMAGE Assets/cenas/pira_ativada.jpg
 Okay, estou começando a ficar paranoico
 
 Por que estou assim?
@@ -196,7 +199,7 @@ RESSOA FRASE
 
 
 === a_chegada_dos_bico ===
-#IMAGE /Assets/cenas/bicos.jpg
+#IMAGE Assets/cenas/bicos.jpg
 Ouço uma sirene
 * a chegada dos bico[]
 
@@ -265,7 +268,7 @@ b
 
 === a_soc_sec ===
 // cena comum
-#IMAGE /Assets/cenas/cena_comum.jpg
+#IMAGE Assets/cenas/cena_comum.jpg
 
 { shuffle:
 	- ->existe

@@ -110,9 +110,15 @@
                 
                 if( splitTag && splitTag.property == "ANIMATION"){
                     debugger;
-                    if (splitTag.val == "pira.gif") {
+                    if (splitTag.val == "pira") {
                         var cena = document.getElementById('cena');
                         cena.classList.add('bg-glitch');
+                    }
+                    if (splitTag == "para") {
+                        var cenas = document.getElementsByClassName('bg-glitch');
+                        cenas.forEach(cena => {
+                            cena.classList.remove('bg-glitch');
+                        });
                     }
                 }
 

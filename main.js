@@ -114,7 +114,9 @@
 
             // Create paragraph element (initially hidden)
             var paragraphElement = document.createElement('p');
-            paragraphElement.innerHTML = paragraphText.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2<span>");
+            // Parse and replace
+
+            paragraphElement.innerHTML = replaceInternalTags(paragraphText)
             timelineContainer.appendChild(paragraphElement);
 
             console.log(paragraphText);
@@ -294,4 +296,11 @@
         soundDiv.srv = src;
         console.log(soundDiv.src);
         soundDiv.play();
+    }
+
+    function replaceInternalTags(paragraph){
+        var newP;
+        newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
+        newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
+        return newP;
     }

@@ -2,7 +2,7 @@ var storyContent = {
     "inkVersion": 19,
     "root": [
         [{
-                "->": "porque_estou_aqui"
+                "->": "discurso_traficante"
             },
             ["done", {
                 "#f": 5,

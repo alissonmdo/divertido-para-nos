@@ -1,6 +1,7 @@
 (function(storyContent) {
 
     backgroundMusicSrc = "Assets/sounds/beat_gotinha_maneira.mp3"
+    nome = "protagonista";
     // Create ink story from the content using inkjs
     story = new inkjs.Story(storyContent);
 
@@ -64,12 +65,10 @@
             // Get ink to generate the next paragraph
             var paragraphText = story.Continue();
             var tags = story.currentTags;
-
             // Any special tags included with this line
             var customClasses = [];
             for(var i=0; i<tags.length; i++) {
                 var tag = tags[i];
-
                 // Detect tags of the form "X: Y". Currently used for IMAGE and CLASS but could be
                 // customised to be used for other things too.
                 var splitTag = splitPropertyTag(tag);
@@ -86,6 +85,24 @@
                     cols[0].style.backgroundImage = "url('"+splitTag.val+"')";
                 }
 
+                if( splitTag && splitTag.property == "INPUT"){
+                    var div = document.createElement('div');
+                    div.id = "generico";
+                    //Cria input
+                    var inputElement = document.createElement('input');
+                    inputElement.type = "text";
+                    inputElement.id = "name";
+                    div.appendChild(inputElement);
+                    timelineContainer.appendChild(div);
+                }
+
+                if( splitTag && splitTag.property == "DELAY"){
+                //Mexe no delay da mensagem e retorna pro delay antigo
+                }
+
+                if( splitTag && splitTag.property == "ANIMATION"){
+                }
+
                 // CLASS: className
                 else if( splitTag && splitTag.property == "CLASS" ) {
                     customClasses.push(splitTag.val);
@@ -96,9 +113,6 @@
                 else if( tag == "CLEAR" || tag == "RESTART" ) {
                     removeAll("p");
                     removeAll("img");
-
-                    // Comment out this line if you want to leave the header visible when clearing
-//                    setVisible(".header", false);
 
                     if( tag == "RESTART" ) {
                         restart();
@@ -114,8 +128,6 @@
             paragraphElement.innerHTML = replaceInternalTags(paragraphText)
             timelineContainer.appendChild(paragraphElement);
 
-//            console.log(paragraphText);
-
             customClasses.push("texto-historia");
             // Add any custom classes derived from ink tags
             for(var i=0; i<customClasses.length; i++)
@@ -127,7 +139,6 @@
             delay += 200.0;
         }
 
-//        console.log(story.currentChoices);
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
@@ -145,6 +156,7 @@
             // Click on choice
             var choiceAnchorEl = choiceParagraphElement.querySelectorAll("a")[0];
             choiceAnchorEl.addEventListener("click", function(event) {
+                setNome();
 
                 // Don't follow <a> link
                 event.preventDefault();
@@ -256,17 +268,17 @@
         return null;
     }
 
-    function tocaMusica(tag, src){
-        var soundDiv = document.querySelector(tag);
-        soundDiv.srv = src;
-        console.log(soundDiv.src);
-        soundDiv.play();
-    }
-
     function replaceInternalTags(paragraph){
         var newP;
         newP = paragraph.replace(/&&\[(.*)\](.*)&&/i,"<span class='chip $1'>$2</span>");
         newP = newP.replace(/\/it(.*)\/it/i,"<i>$1</i>");
         newP = newP.replace(/%nome%/i,nome);
         return newP;
+    }
+
+    function setNome(){
+        if(document.getElementById("name") != null){
+            nome = document.getElementById("name").value;
+            document.getElementById('generico').style.display = 'none';
+        }
     }

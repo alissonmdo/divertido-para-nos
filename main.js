@@ -114,11 +114,11 @@
                         var cena = document.getElementById('cena');
                         cena.classList.add('bg-glitch');
                     }
-                    if (splitTag == "para") {
+                    if (splitTag.val == "para") {
                         var cenas = document.getElementsByClassName('bg-glitch');
-                        cenas.forEach(cena => {
-                            cena.classList.remove('bg-glitch');
-                        });
+                        for (let i = 0; i < cenas.length; i++) {
+                            cenas[i].classList.remove('bg-glitch');
+                        }
                     }
                 }
 

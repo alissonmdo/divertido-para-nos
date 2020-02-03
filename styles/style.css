@@ -176,3 +176,16 @@ p.choice a {
 .danger{
     background-color: red;
 }
+
+.creditos {
+    opacity: 0.5;
+    display: block;
+    position: absolute;
+    bottom:0;
+    right:20px;
+}
+
+.creditos ul li{
+    padding:0;
+    list-style: none;
+}
